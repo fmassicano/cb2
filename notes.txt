@@ -1,0 +1,77 @@
+    Permissions           Names
+_________________    __________________
+ user group others - username groupname
+drwx  rwx   rwx            
+ 421  421   421      
+
+a all
+u user
+g group
+o other
+- remove permission
++ add permission
+chmod a-rwx | chmod 000
+chmod u-r   | chmod 400  
+
+# Linux ira primeiro observar qual a localizacao que ele ira procurar. 
+export PATH=$PATH:.
+
+# ~/.local/bin esta no path, entao seria interessante colocar os scripts nele.
+~/.local/bin/hello.sh
+
+apropos
+
+zcat : command for read fa.gz
+tr -d "\n" : tr -d "\n" command to remove the breakline
+
+grep -v ommit the line
+zcat fa.gz | grep -v ">" | tr -d "\n" | wc -c
+
+echo `zcat ame_ref_Amel_HAv3.1_chrLG9.fa.gz | grep -v ">" | tr -d "\n" | wc -c` / `zcat ame_ref_Amel_HAv3.1_chrLG9.fa.gz | grep ">" | wc -l` | bc
+
+# comeca na linha 4
+tail -n+4 
+
+cat .tsv | gzip -c > tsv.gzip
+
+zcat .tsv.gz | bzip2 -c > tsv.bz2
+
+zcat .tsv.gz | zx -T0 -c > tsv.xz
+
+tar -cvf cb2 > cb2.tar 
+
+tar -tf cb2.tar
+
+tar -cv bc2 | zx -T0 -c > tar.xz
+
+tar -cvfz ..tar.gz folder_name
+
+tar -xvf
+
+wget -r -A,faa ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/Drosophila_melanogaster/RELEASE_4.1/ | tar -cvf genoma_4.1
+
+find xxxx -iname "*.faa" -exec cp {} folder \; 
+
+su -
+su -c "make install"
+
+###########
+tar -xzvf name.tar.gz
+
+./configure
+
+make 
+
+make install
+############
+
+
+
+bzcat
+
+gunzip
+ 
+
+ftp.cnbi
+
+- Taxonomy: file, class, species

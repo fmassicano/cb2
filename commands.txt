@@ -1,0 +1,10 @@
+
+# number of characters divide by number of sequence : average length of sequence
+echo `zcat ame_ref_Amel_HAv3.1_chrLG9.fa.gz | grep -v ">" | tr -d "\n" | wc -c` / `zcat ame_ref_Amel_HAv3.1_chrLG9.fa.gz | grep ">" | wc -l` | bc
+
+# extract the ID between pipes |
+zcat ame_ref_Amel_HAv3.1_chrLG9.fa.gz | grep ">" | sed -n 's/.*|\(.*\)|.*/\1/p'
+
+# extract the Groups associated to Group 9
+zcat ame_ref_Amel_HAv3.1_chrLG9.fa.gz | grep ">" | sed -n 's/.*\(Group.*Group[0-9]*\).*/\1/p' | cut -d '_' -f 2 | sort -n |  tr "\n" " " > groups
+ 
