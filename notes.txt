@@ -29,7 +29,7 @@ zcat fa.gz | grep -v ">" | tr -d "\n" | wc -c
 
 echo `zcat ame_ref_Amel_HAv3.1_chrLG9.fa.gz | grep -v ">" | tr -d "\n" | wc -c` / `zcat ame_ref_Amel_HAv3.1_chrLG9.fa.gz | grep ">" | wc -l` | bc
 
-# comeca na linha 4
+# start in line 4
 tail -n+4 
 
 cat .tsv | gzip -c > tsv.gzip
@@ -42,7 +42,7 @@ tar -cvf cb2 > cb2.tar
 
 tar -tf cb2.tar
 
-tar -cv bc2 | zx -T0 -c > tar.xz
+tar -cv cb2 | xz -T0 -c > tar.xz
 
 tar -cvfz ..tar.gz folder_name
 
@@ -52,8 +52,11 @@ wget -r -A,faa ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_refseq/Drosophila_
 
 find xxxx -iname "*.faa" -exec cp {} folder \; 
 
+cd folder; ls -1 | xargs -I{} echo "cat {} | xz -T0 -c > {}.xz; rm {}" | sh
+
 su -
 su -c "make install"
+
 
 ###########
 tar -xzvf name.tar.gz
