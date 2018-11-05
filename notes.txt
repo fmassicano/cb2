@@ -68,8 +68,6 @@ make
 make install
 ############
 
-
-
 bzcat
 
 gunzip
@@ -77,12 +75,11 @@ gunzip
 
 ftp.cnbi
 
-run command with & in the final , put the command in background
+run command with "&" symbol in the final , put the command in background
  
 # install Latex properly in CentOs 7
 su -c "yum -y install texlive texlive-latex texlive-xetex"
 su -c "yum -y install texlive-xetex-def"
 su -c "yum -y install texlive-framed"
-
 
 
