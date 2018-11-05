@@ -77,4 +77,12 @@ gunzip
 
 ftp.cnbi
 
-- Taxonomy: file, class, species
+run command with & in the final , put the command in background
+ 
+# install Latex properly in CentOs 7
+su -c "yum -y install texlive texlive-latex texlive-xetex"
+su -c "yum -y install texlive-xetex-def"
+su -c "yum -y install texlive-framed"
+
+
+
