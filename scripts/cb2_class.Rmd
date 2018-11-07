@@ -1,0 +1,127 @@
+---
+title: "Class C2B"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Plot with iris data
+
+```{r}
+data("iris")
+
+str(iris)
+
+plot(iris$Sepal.Length,iris$Sepal.Width, xlab = "Length", ylab = "Width", main = "Septal Lenght vs Width")
+
+```
+
+```{r}
+{
+  pdf(file = "petal_chart.pdf",width = 8.5, height = 11)  
+  plot(iris$Petal.Length,iris$Petal.Width, xlab = "", ylab = "", main = "", axes=F,type="n")
+  points(iris$Petal.Length,iris$Petal.Width,col="red",size = iris$Sepal.Width)
+  axis(1)
+  axis(2)
+  box()
+  title(main = "Petal Length vs Width",xlab = "Width",ylab = "Length")
+  legend("topleft",legend = "Something",pch=19,col = "red")
+  dev.off()
+}
+```
+
+
+```{r}
+{
+  pdf(file = "side_by_side.pdf", width = 8.5, height = 11)
+  par(mfrow = c(1, 2),pty="s")
+  plot( iris$Petal.Length, iris$Petal.Width )
+  plot( iris$Sepal.Length, iris$Sepal.Width )
+  dev.off()
+}
+```
+
+# Linear Regression
+
+```{r}
+
+model <- lm(iris$Petal.Width ~ iris$Petal.Length)
+summary(model)
+{
+plot(iris$Petal.Width~iris$Petal.Length,col=iris$Species)
+abline(model)
+}
+```
+
+```{r}
+split_data <- split(x = iris, f = iris$Species)
+r = vector()
+for(i in names(split_data)){
+  m <- lm(split_data[[i]]$Petal.Width ~ split_data[[i]]$Petal.Length)
+  r[i] = summary(m)$adj.r.squared
+}
+
+r
+
+lapply(split_data, function(d){  
+  m <- lm(d$Petal.Width ~ d$Petal.Length)
+  summary(m)$adj.r.squared
+  })
+
+r = vector()
+
+for(i in levels(iris$Species)){
+  data = iris[iris$Species==i,]
+  m <- lm(data$Petal.Width ~ data$Petal.Length)
+  r[i] = summary(m)$adj.r.squared
+}
+
+```
+
+# Histogram
+
+```{r}
+d <- rnorm(1000,mean = 10, sd = 10)
+
+hist(d, breaks = 50)
+plot(density(d))
+mean(d)
+sd(d)
+median(d)
+```
+
+## Z-score
+
+z-score = 1 66%
+z-score = 3 99%
+```{r}
+d <- (d - mean(d))/sd(d)
+hist(d, breaks = 50)
+plot(density(d))
+```
+
+# Boxplot
+
+```{r}
+
+boxplot(iris)
+boxplot(d)
+
+```
+
+# Barplot
+
+```{r}
+
+barplot(sort(table(iris$Sepal.Length)))
+
+barplot(table(mtcars$cyl,mtcars$gear),beside = T)
+
+barplot(height = c("a"=3,"b"=5,"d"=7))
+
+```
+
+
+
