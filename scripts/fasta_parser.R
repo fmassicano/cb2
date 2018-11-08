@@ -19,25 +19,15 @@ if(length(args) <= 1){
 }
 
 filename <- args[1] # fasta file with the sequences
-id <- args[2] # ID to looking for in fasta file 
+ids_to_looking_for <- read.table(args[2],header = F) # IDs to looking for in fasta file | "ids_get_by_vogelstein.txt"
 
-if(is.na(args[3])){
-  ids_filter <- "ids_get_by_vogelstein.txt" # Filter: only ids in this file is allow to search
-}else{
-  ids_filter <- args[3]
-}
+ids_to_looking_for <- as.vector(ids_to_looking_for[,1])
 
-if(file.exists(ids_filter)){
-  ids <- read.table(ids_filter,header = F)
-}else{
-  stop("The file ",ids_filter," was not found")  
-}
-
-seq = list() # performance
-i = 1;
-if(id %in% as.vector(ids[,1])){
+for(id in ids_to_looking_for){
   
   con = file(filename, "r")
+  seq = list() # performance
+  i = 1;
   
   start = FALSE
   
@@ -57,14 +47,15 @@ if(id %in% as.vector(ids[,1])){
   }
   
   close(con)
-    
+
+  seq <- unlist(seq)
+  
+  if(length(seq) > 1){
+    cat(paste(id,"\n"))
+    cat(paste(seq,collapse = "\n"))
+    cat("\n")
+  }
+  
 }
 
-seq <- unlist(seq)
 
-if(length(seq) > 1){
-  cat(paste(seq,collapse = "\n"))
-  cat("\n")
-}else{
-  cat(paste("The id =",id,"is not into the ids allowed.\n"))
-}

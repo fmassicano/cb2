@@ -90,3 +90,4 @@ su -c "yum -y install texlive-framed"
 *** GenBank GI:id
 *** Gene Ontology
 
+ggsea
