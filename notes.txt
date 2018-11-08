@@ -83,3 +83,10 @@ su -c "yum -y install texlive-xetex-def"
 su -c "yum -y install texlive-framed"
 
 
+
+
+### Biology Data
+
+*** GenBank GI:id
+*** Gene Ontology
+
