@@ -91,3 +91,28 @@ su -c "yum -y install texlive-framed"
 *** Gene Ontology
 
 ggsea
+
+
+*** Find similary sequences in the database
+
+BLAST
+ blastp: proteim
+ blastn: DNA
+ 
+ BLOSUM62 62% similar frequence log
+ 
+ E-value : chance to the sequence is in a database. lower e-value more is the chance
+ 
+ BLAST formats 
+ 
+ ex: (at least frequency) (changes/frequence) freq = 4 
+
+Homologs : Evolution 
+  Orthologs - all vs all BLAST
+  Paralogs
+Homoplasy - habitation enviroment
+
+Markov Process 
+Hidden Markov model
+ 
+HMMER

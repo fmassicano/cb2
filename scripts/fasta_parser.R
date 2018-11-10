@@ -2,9 +2,14 @@
 
 # Identifying the ID
 match_id <- function(id,line){
-  length(grep(id,line,perl = T)) > 0 # P61769 0m13.083s
-  # !is.na(stringi::stri_match_first(line,regex = id)[,1]) # 	P61769 0m18.483s
-  # regexec(paste0("^\\>\\w+\\|",id,"\\|"),line,perl = T)[[1]][1] != -1 # P61769	0m24.317s
+  m <- regexec("^\\>\\w+\\|(\\S+)\\|",line,perl = T)
+  
+  if(m[[1]][1]==-1)
+    return(FALSE)
+  
+  s <- regmatches(line, m)
+  
+  return(s[[1]][2] %in% id)
 }
 
 # Identifying the last line of the sequence
@@ -23,39 +28,46 @@ ids_to_looking_for <- read.table(args[2],header = F) # IDs to looking for in fas
 
 ids_to_looking_for <- as.vector(ids_to_looking_for[,1])
 
-for(id in ids_to_looking_for){
-  
-  con = file(filename, "r")
-  seq = list() # performance
-  i = 1;
-  
-  start = FALSE
-  
-  while ( length(line <- readLines(con, n=1)) > 0 ) {
-    
-    if(start){
-      if(is_final_line(line)){
-        break
-      }
-      seq[[i]] <- line
-      i = i + 1
-      next # dont need more validate the ID
-    }
-    
-    if(match_id(id,line)) start <- TRUE
-    
-  }
-  
-  close(con)
+con = file(filename, "r")
+seq = list() # performance
+i = 1
 
-  seq <- unlist(seq)
+start = FALSE
+
+if(file.exists("./parse.log")) unlink(x = "parse.log")
+
+while (length(line <- readLines(con, n = 1)) > 0) {
   
-  if(length(seq) > 1){
-    cat(paste(id,"\n"))
-    cat(paste(seq,collapse = "\n"))
-    cat("\n")
+  if (start) {
+    if (is_final_line(line)) {
+      # check if the final contain the next id
+      if (match_id(ids_to_looking_for, line)){
+        cat(file = "parse.log", paste(line,"\n"),append = T)
+        start <- TRUE
+      }else{
+        start <- FALSE
+        next        
+      }
+    }
+    seq[[i]] <- line
+    i = i + 1
+    next
   }
   
+  # check the next id
+  if (match_id(ids_to_looking_for, line)){
+    cat(file = "parse.log", paste(line,"\n"),append = T)
+    start <- TRUE
+    seq[[i]] <- line
+    i = i + 1
+  }
+    
 }
 
+close(con)
 
+seq <- unlist(seq)
+
+if (length(seq) > 1) {
+  cat(paste(seq, collapse = "\n"))
+}
