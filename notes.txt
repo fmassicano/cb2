@@ -120,3 +120,11 @@ HMMER
 
 APE R package
 
+DNAseq: trimd, bwa, samtools, cvf/bcftools, gatk/freebayes, picard, tabix
+RNAseq: STAR, RSEM, EAgeR, DeseqR
+
+sge
+
+a b > temp && mv temp c
+
+genecode
