@@ -123,5 +123,13 @@ barplot(height = c("a"=3,"b"=5,"d"=7))
 
 ```
 
+```{r}
+ps <- seq(0,50,10)
+acc <-  1 - 10^(-ps/10)
+{plot(ps,acc,xlab = "Phred score",ylab = "Accurancy")
+lines(ps,acc)
+abline(v=20,col="red")}
+```
+
 
 
